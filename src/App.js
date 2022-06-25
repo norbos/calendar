@@ -3,7 +3,7 @@ import Calendar from './Calendar';
 
 function App() {
   return (
-    <div className="App">      
+    <div className="App">
       <Calendar></Calendar>
     </div>
   );
