@@ -1,11 +1,10 @@
 import './App.css';
-import Calendar from './Calendar';
+import Layout from './Layout';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-    <div className="App">
-      <Calendar></Calendar>
-    </div>
+    <Layout />
   );
 }
 

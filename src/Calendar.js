@@ -5,8 +5,8 @@ function Calendar() {
   return (
     <div>
       <table>
-        <Header></Header>
-        <Body></Body>
+        <Header />
+        <Body />
       </table>
     </div>
   );
