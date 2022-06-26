@@ -1,3 +1,4 @@
+import CalendarDay from "./CalendarDay";
 
 function Body() {
 
@@ -29,10 +30,7 @@ function Body() {
                 <tr>
                     {
                     week.map(day => 
-                        day === 0 ?
-                        <td style={{ backgroundColor: "gray" }}></td>
-                        :
-                        <td style={{ textAlign: "center" }}>{day}</td>
+                        <CalendarDay day={day} />
                     )}
                 </tr>)
             }
