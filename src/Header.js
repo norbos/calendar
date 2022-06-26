@@ -7,7 +7,7 @@ function Header() {
         <thead>
             <tr>
                 {
-                    weekDays.map(day => <th>{day}</th>)
+                    weekDays.map(day => <th style={{ textAlign: "center" }}>{day}</th>)
                 }
             </tr>
         </thead>
