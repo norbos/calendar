@@ -1,11 +1,15 @@
 
 function Header() {
 
-    var date = new Date('05/29/2022');
+    var weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
     return (
         <thead>
-            
+            <tr>
+                {
+                    weekDays.map(day => <th>{day}</th>)
+                }
+            </tr>
         </thead>
     );
   }

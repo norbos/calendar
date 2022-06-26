@@ -4,7 +4,7 @@ import Body from "./Body";
 function Calendar() {
   return (
     <div>
-      <table>
+      <table className="table">
         <Header />
         <Body />
       </table>
