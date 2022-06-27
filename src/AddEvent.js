@@ -2,7 +2,7 @@ import { useState } from "react";
 
 const AddEvent = ( {date, onAdd, onEventAddSuccess} ) => {
     const [name, setName] = useState('');
-    const [interalDate, setDate] = useState(date);
+    const [interalDate] = useState(date);
     const [startTime, setStartTime] = useState('');
     const [endTime, setEndTime] = useState('');
     const [description, setDescription] = useState('');
@@ -25,7 +25,7 @@ const AddEvent = ( {date, onAdd, onEventAddSuccess} ) => {
             return;
         }
 
-        onAdd({interalDate, name, startTime, endTime, description});
+        onAdd({date: interalDate, name, startTime, endTime, description});
         onEventAddSuccess();
 
         setName('');
