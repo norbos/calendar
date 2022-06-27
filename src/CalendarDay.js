@@ -1,10 +1,15 @@
 
-const CalendarDay = ({day}) => {
+const CalendarDay = ({date}) => {
     return (
-        day === 0 ?
+        date === 0 ?
             <td style={{ backgroundColor: "gray" }}></td>
             :
-            <td style={{ textAlign: "center" }}>{day}</td>
+            <td style={{ textAlign: "center" }}>
+                {date.getDate()}
+                <br></br>
+                <button style={{ color: "red" }}>+</button>
+                <button style={{ color: "green" }}>...</button>
+            </td>
     );
   }
   

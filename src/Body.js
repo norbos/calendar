@@ -4,6 +4,7 @@ function Body() {
 
     var currenDate = new Date();
     var iterDate = new Date(currenDate.getFullYear(), currenDate.getMonth(), 1);
+    iterDate.setHours(0, 0, 0, 0);
     var currentMonth = currenDate.getMonth();
 
     var grid = [];
@@ -15,7 +16,7 @@ function Body() {
             if (iterDate.getDay() !== i || iterDate.getMonth() !== currentMonth) {
                 currentWeek.push(0);
             } else {
-                currentWeek.push(iterDate.getDate());
+                currentWeek.push(new Date(iterDate));
                 iterDate.setDate(iterDate.getDate() + 1);
             }
         }
@@ -29,8 +30,8 @@ function Body() {
                 grid.map(week => 
                 <tr>
                     {
-                    week.map(day => 
-                        <CalendarDay day={day} />
+                    week.map(date => 
+                        <CalendarDay date={date} />
                     )}
                 </tr>)
             }
