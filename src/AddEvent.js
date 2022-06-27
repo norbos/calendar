@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const AddEvent = ( {date, onAdd} ) => {
+const AddEvent = ( {date, onAdd, onEventAddSuccess} ) => {
     const [name, setName] = useState('');
     const [interalDate, setDate] = useState(date);
     const [startTime, setStartTime] = useState('');
@@ -26,6 +26,7 @@ const AddEvent = ( {date, onAdd} ) => {
         }
 
         onAdd({interalDate, name, startTime, endTime, description});
+        onEventAddSuccess();
 
         setName('');
         setStartTime('');

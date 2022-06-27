@@ -21,6 +21,10 @@ function Calendar() {
     setCurrentDate(date);
   }
 
+  const onEventAddSuccess = () => {
+    setShowAddEvent(false);
+  }
+
   const getEvents = (date) => {
     return events.filter(e => e.date === date);
   }
@@ -34,7 +38,7 @@ function Calendar() {
       {
         showAddEvent &&
         <div>
-          <AddEvent onAddEvent={addEvent} date={currentDate}/>
+          <AddEvent onAdd={addEvent} onEventAddSuccess={onEventAddSuccess} date={currentDate}/>
         </div>
       }
       
