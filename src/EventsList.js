@@ -1,8 +1,11 @@
 
-const EventsList = ({ date, events }) => {
+const EventsList = ({ date, events, onListClose }) => {
     return (
         <div>
-            <h3>{date.toLocaleDateString()}</h3>
+            <h4>{date.toLocaleDateString()}</h4>
+            {events.length === 0 ?
+            <h5>No events</h5>
+            :
             <table>
                 <thead>
                     <tr>
@@ -25,6 +28,9 @@ const EventsList = ({ date, events }) => {
                     }
                 </tbody>
             </table>
+            }
+            
+            <button className="btn" onClick={onListClose}>Close</button>
         </div>
     );
 }

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const AddEvent = ( {date, onAdd, onEventAddSuccess} ) => {
+const AddEvent = ( {date, onAdd, onEventAddSuccess, onAddCancel} ) => {
     const [name, setName] = useState('');
     const [interalDate] = useState(date);
     const [startTime, setStartTime] = useState('');
@@ -57,6 +57,7 @@ const AddEvent = ( {date, onAdd, onEventAddSuccess} ) => {
             </div>
 
             <input type='submit' value='Add Event' className='btn' />
+            <input type='button' value='Cancel' className='btn' onClick={onAddCancel} />
         </form>
     )
 }
