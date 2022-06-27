@@ -1,6 +1,6 @@
 import CalendarDay from "./CalendarDay";
 
-function Body() {
+const Body = ({ onAddEvent, onGetEvents }) => {
 
     var currenDate = new Date();
     var iterDate = new Date(currenDate.getFullYear(), currenDate.getMonth(), 1);
@@ -31,7 +31,7 @@ function Body() {
                 <tr>
                     {
                     week.map(date => 
-                        <CalendarDay date={date} />
+                        <CalendarDay date={date} onAddEvent={onAddEvent} onGetEvents={onGetEvents} />
                     )}
                 </tr>)
             }

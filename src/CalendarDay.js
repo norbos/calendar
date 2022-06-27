@@ -1,5 +1,5 @@
 
-const CalendarDay = ({date}) => {
+const CalendarDay = ({date, onAddEvent, onGetEvents}) => {
     return (
         date === 0 ?
             <td style={{ backgroundColor: "gray" }}></td>
