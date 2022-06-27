@@ -2,11 +2,14 @@ import Header from "./Header";
 import Body from "./Body";
 import AddEvent from "./AddEvent";
 import { useState } from 'react';
+import EventsList from "./EventsList";
 
 function Calendar() {
   const [events, setEvents] = useState([]);
   const [showAddEvent, setShowAddEvent] = useState(false);
+  const [showEventsList, setShowEventsList] = useState(false);
   const [currentDate, setCurrentDate] = useState();
+  const [currentListDate, setCurrentListDate] = useState();
 
   const addEvent = (calendarEvent) => {
     const id = Math.floor(Math.random() * 10000) + 1;
@@ -25,20 +28,21 @@ function Calendar() {
     setShowAddEvent(false);
   }
 
-  const getEvents = (date) => {
-    return events.filter(e => e.date === date);
+  const onRequestGetEvents = (date) => {
+    setShowEventsList(true);
+    setCurrentListDate(date);
   }
 
   return (
     <div>
       <table className="table">
         <Header />
-        <Body onRequestAddEvent={requestAddEvent} onGetEvents={getEvents} />
+        <Body onRequestAddEvent={requestAddEvent} onRequestGetEvents={onRequestGetEvents} />
       </table>
       {
-        showAddEvent &&
         <div>
-          <AddEvent onAdd={addEvent} onEventAddSuccess={onEventAddSuccess} date={currentDate}/>
+          { showAddEvent &&  <AddEvent onAdd={addEvent} onEventAddSuccess={onEventAddSuccess} date={currentDate}/>}
+          { showEventsList && <EventsList date={currentListDate} events={events.filter(e => e.date.getTime() === currentListDate.getTime())} /> }
         </div>
       }
       
