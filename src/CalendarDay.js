@@ -1,5 +1,5 @@
 
-const CalendarDay = ({date, onAddEvent, onGetEvents}) => {
+const CalendarDay = ({date, onRequestAddEvent, onGetEvents}) => {
     return (
         date === 0 ?
             <td style={{ backgroundColor: "gray" }}></td>
@@ -7,7 +7,7 @@ const CalendarDay = ({date, onAddEvent, onGetEvents}) => {
             <td style={{ textAlign: "center" }}>
                 {date.getDate()}
                 <br></br>
-                <button style={{ color: "red" }}>+</button>
+                <button style={{ color: "red" }} onClick={() => onRequestAddEvent(date)}>+</button>
                 <button style={{ color: "green" }}>...</button>
             </td>
     );

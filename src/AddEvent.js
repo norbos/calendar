@@ -2,7 +2,7 @@ import { useState } from "react";
 
 const AddEvent = ( {date, onAdd} ) => {
     const [name, setName] = useState('');
-    const [date, setDate] = useState(date);
+    const [interalDate, setDate] = useState(date);
     const [startTime, setStartTime] = useState('');
     const [endTime, setEndTime] = useState('');
     const [description, setDescription] = useState('');
@@ -25,7 +25,7 @@ const AddEvent = ( {date, onAdd} ) => {
             return;
         }
 
-        onAdd({date, name, startTime, endTime, description});
+        onAdd({interalDate, name, startTime, endTime, description});
 
         setName('');
         setStartTime('');
@@ -39,7 +39,7 @@ const AddEvent = ( {date, onAdd} ) => {
             <div className='form-control'>
                 <label>Name</label>
                 <input type='text' placeholder='Event Name'
-                 value={text} onChange={(e) => setName(e.target.value)} />
+                 value={name} onChange={(e) => setName(e.target.value)} />
             </div>
             <div className='form-control'>
                 <label>Start Time</label>
@@ -55,7 +55,7 @@ const AddEvent = ( {date, onAdd} ) => {
                  value={description} onChange={(e) => setDescription(e.target.value)} />
             </div>
 
-            <input type='submit' value='Add Event' className='btn btn-block' />
+            <input type='submit' value='Add Event' className='btn' />
         </form>
     )
 }

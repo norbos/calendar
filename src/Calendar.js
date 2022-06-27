@@ -1,9 +1,12 @@
 import Header from "./Header";
 import Body from "./Body";
+import AddEvent from "./AddEvent";
 import { useState } from 'react';
 
 function Calendar() {
   const [events, setEvents] = useState([]);
+  const [showAddEvent, setShowAddEvent] = useState(false);
+  const [currentDate, setCurrentDate] = useState();
 
   const addEvent = (calendarEvent) => {
     const id = Math.floor(Math.random() * 10000) + 1;
@@ -11,6 +14,11 @@ function Calendar() {
     const newEvent = { id, ...calendarEvent };
 
     setEvents([...events, newEvent]);
+  }
+
+  const requestAddEvent = (date) => {
+    setShowAddEvent(true);
+    setCurrentDate(date);
   }
 
   const getEvents = (date) => {
@@ -21,8 +29,15 @@ function Calendar() {
     <div>
       <table className="table">
         <Header />
-        <Body onAddEvent={addEvent} onGetEvents={getEvents} />
+        <Body onRequestAddEvent={requestAddEvent} onGetEvents={getEvents} />
       </table>
+      {
+        showAddEvent &&
+        <div>
+          <AddEvent onAddEvent={addEvent} date={currentDate}/>
+        </div>
+      }
+      
     </div>
   );
 }
