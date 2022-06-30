@@ -1,7 +1,7 @@
 import Header from "./Header";
 import Body from "./Body";
 import AddEvent from "./AddEvent";
-import { useState } from 'react';
+import { useState } from "react";
 import EventsList from "./EventsList";
 
 function Calendar() {
@@ -11,6 +11,10 @@ function Calendar() {
   const [showEventsList, setShowEventsList] = useState(false);
   const [currentDate, setCurrentDate] = useState();
   const [currentListDate, setCurrentListDate] = useState();
+
+  const months = ["January", "February", "March", "April", 
+                  "May", "June", "July", "August", 
+                  "September", "October", "November", "December"];
 
   const addEvent = (calendarEvent) => {
     const id = Math.floor(Math.random() * 10000) + 1;
