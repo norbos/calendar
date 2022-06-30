@@ -6,3 +6,10 @@ export function updateMonth(month) {
         month
     };
 }
+
+export function updateYear(year) {
+    return {
+        type: types.UPDATE_YEAR,
+        year
+    };
+}

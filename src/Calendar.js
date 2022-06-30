@@ -4,7 +4,7 @@ import AddEvent from "./AddEvent";
 import { useState } from "react";
 import EventsList from "./EventsList";
 import { connect } from "react-redux";
-import * as monthActions from "./redux/actions/monthActions";
+import * as dateActions from "./redux/actions/dateActions";
 import { bindActionCreators } from "redux";
 
 function Calendar(props) {
@@ -59,7 +59,7 @@ function Calendar(props) {
     <div>
       <div style={{ textAlign:"center" }}>
       <button>Previous</button>
-        <h2 style={{ display:"inline-block" }}>{displayMonths[props.month]}</h2>
+        <h2 style={{ display:"inline-block" }}>{displayMonths[props.month]} {props.year}</h2>
       <button>Next</button>
       </div>
       <table className="table" style={disabled ? {pointerEvents: "none", opacity: "0.4"} : {}}>
@@ -79,13 +79,14 @@ function Calendar(props) {
 
 function mapStateToProps(state) {
   return {
-    month: state.month
+    month: state.month,
+    year: state.year
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(monthActions, dispatch)
+    actions: bindActionCreators(dateActions, dispatch)
   };
 }
 
