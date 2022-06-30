@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import configureStore from './redux/configureStore';
 import { Provider as ReduxProvider } from 'react-redux';
 
-const store = configureStore();
+const store = configureStore({ month: new Date().getMonth() });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

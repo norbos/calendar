@@ -3,8 +3,11 @@ import Body from "./Body";
 import AddEvent from "./AddEvent";
 import { useState } from "react";
 import EventsList from "./EventsList";
+import { connect } from "react-redux";
+import * as monthActions from "./redux/actions/monthActions";
+import { bindActionCreators } from "redux";
 
-function Calendar() {
+function Calendar(props) {
   const [events, setEvents] = useState([]);
   const [disabled, setDisabled] = useState(false);
   const [showAddEvent, setShowAddEvent] = useState(false);
@@ -12,9 +15,9 @@ function Calendar() {
   const [currentDate, setCurrentDate] = useState();
   const [currentListDate, setCurrentListDate] = useState();
 
-  const months = ["January", "February", "March", "April", 
-                  "May", "June", "July", "August", 
-                  "September", "October", "November", "December"];
+  const displayMonths = ["January", "February", "March", "April", 
+                         "May", "June", "July", "August", 
+                         "September", "October", "November", "December"];
 
   const addEvent = (calendarEvent) => {
     const id = Math.floor(Math.random() * 10000) + 1;
@@ -54,13 +57,18 @@ function Calendar() {
 
   return (
     <div>
+      <div style={{ textAlign:"center" }}>
+      <button>Previous</button>
+        <h2 style={{ display:"inline-block" }}>{displayMonths[props.month]}</h2>
+      <button>Next</button>
+      </div>
       <table className="table" style={disabled ? {pointerEvents: "none", opacity: "0.4"} : {}}>
         <Header />
         <Body onRequestAddEvent={requestAddEvent} onRequestGetEvents={onRequestGetEvents} />
       </table>
       {
         <div>
-          { showAddEvent &&  <AddEvent onAdd={addEvent} onEventAddSuccess={onEventAddSuccess} onAddCancel={onAddCancel} date={currentDate}/>}
+          { showAddEvent &&  <AddEvent onAdd={addEvent} onEventAddSuccess={onEventAddSuccess} onAddCancel={onAddCancel} date={currentDate} /> }
           { showEventsList && <EventsList date={currentListDate} events={events.filter(e => e.date.getTime() === currentListDate.getTime())} onListClose={onListClose} /> }
         </div>
       }
@@ -69,4 +77,16 @@ function Calendar() {
   );
 }
 
-export default Calendar;
+function mapStateToProps(state) {
+  return {
+    month: state.month
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(monthActions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Calendar);
