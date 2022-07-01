@@ -55,12 +55,30 @@ function Calendar(props) {
     setDisabled(true);
   }
 
+  const onPrevClicked = () => {
+    if (props.month === 0) {
+      props.actions.updateMonth(11);
+      props.actions.updateYear(props.year - 1);
+    } else {
+      props.actions.updateMonth(props.month - 1);
+    }
+  }
+
+  const onNextClicked = () => {
+    if (props.month === 11) {
+      props.actions.updateMonth(0);
+      props.actions.updateYear(props.year + 1);
+    } else {
+      props.actions.updateMonth(props.month + 1);
+    }
+  }
+
   return (
     <div>
       <div style={{ textAlign:"center" }}>
-      <button>Previous</button>
-        <h2 style={{ display:"inline-block" }}>{displayMonths[props.month]} {props.year}</h2>
-      <button>Next</button>
+        <button onClick={onPrevClicked}>Previous</button>
+          <h2 style={{ display:"inline-block" }}>{displayMonths[props.month]} {props.year}</h2>
+        <button onClick={onNextClicked}>Next</button>
       </div>
       <table className="table" style={disabled ? {pointerEvents: "none", opacity: "0.4"} : {}}>
         <Header />
@@ -72,7 +90,6 @@ function Calendar(props) {
           { showEventsList && <EventsList date={currentListDate} events={events.filter(e => e.date.getTime() === currentListDate.getTime())} onListClose={onListClose} /> }
         </div>
       }
-      
     </div>
   );
 }
