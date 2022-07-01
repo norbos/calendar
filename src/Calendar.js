@@ -1,16 +1,23 @@
 import Header from "./Header";
 import Body from "./Body";
 import AddEvent from "./AddEvent";
-import { useState } from 'react';
+import { useState } from "react";
 import EventsList from "./EventsList";
+import { connect } from "react-redux";
+import * as dateActions from "./redux/actions/dateActions";
+import { bindActionCreators } from "redux";
 
-function Calendar() {
+function Calendar(props) {
   const [events, setEvents] = useState([]);
   const [disabled, setDisabled] = useState(false);
   const [showAddEvent, setShowAddEvent] = useState(false);
   const [showEventsList, setShowEventsList] = useState(false);
   const [currentDate, setCurrentDate] = useState();
   const [currentListDate, setCurrentListDate] = useState();
+
+  const displayMonths = ["January", "February", "March", "April", 
+                         "May", "June", "July", "August", 
+                         "September", "October", "November", "December"];
 
   const addEvent = (calendarEvent) => {
     const id = Math.floor(Math.random() * 10000) + 1;
@@ -48,21 +55,56 @@ function Calendar() {
     setDisabled(true);
   }
 
+  const onPrevClicked = () => {
+    if (props.month === 0) {
+      props.actions.updateMonth(11);
+      props.actions.updateYear(props.year - 1);
+    } else {
+      props.actions.updateMonth(props.month - 1);
+    }
+  }
+
+  const onNextClicked = () => {
+    if (props.month === 11) {
+      props.actions.updateMonth(0);
+      props.actions.updateYear(props.year + 1);
+    } else {
+      props.actions.updateMonth(props.month + 1);
+    }
+  }
+
   return (
     <div>
+      <div style={{ textAlign:"center" }}>
+        <button onClick={onPrevClicked}>Previous</button>
+          <h2 style={{ display:"inline-block" }}>{displayMonths[props.month]} {props.year}</h2>
+        <button onClick={onNextClicked}>Next</button>
+      </div>
       <table className="table" style={disabled ? {pointerEvents: "none", opacity: "0.4"} : {}}>
         <Header />
         <Body onRequestAddEvent={requestAddEvent} onRequestGetEvents={onRequestGetEvents} />
       </table>
       {
         <div>
-          { showAddEvent &&  <AddEvent onAdd={addEvent} onEventAddSuccess={onEventAddSuccess} onAddCancel={onAddCancel} date={currentDate}/>}
+          { showAddEvent &&  <AddEvent onAdd={addEvent} onEventAddSuccess={onEventAddSuccess} onAddCancel={onAddCancel} date={currentDate} /> }
           { showEventsList && <EventsList date={currentListDate} events={events.filter(e => e.date.getTime() === currentListDate.getTime())} onListClose={onListClose} /> }
         </div>
       }
-      
     </div>
   );
 }
 
-export default Calendar;
+function mapStateToProps(state) {
+  return {
+    month: state.month,
+    year: state.year
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(dateActions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Calendar);

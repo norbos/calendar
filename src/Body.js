@@ -1,11 +1,10 @@
 import CalendarDay from "./CalendarDay";
+import { connect } from "react-redux";
 
-const Body = ({ onRequestAddEvent, onRequestGetEvents }) => {
-
-    var currenDate = new Date();
-    var iterDate = new Date(currenDate.getFullYear(), currenDate.getMonth(), 1);
+const Body = (props) => {
+    var iterDate = new Date(props.year, props.month, 1);
     iterDate.setHours(0, 0, 0, 0);
-    var currentMonth = currenDate.getMonth();
+    var currentMonth = props.month;
 
     var grid = [];
 
@@ -31,13 +30,22 @@ const Body = ({ onRequestAddEvent, onRequestGetEvents }) => {
                 <tr>
                     {
                     week.map(date => 
-                        <CalendarDay date={date} onRequestAddEvent={onRequestAddEvent} onRequestGetEvents={onRequestGetEvents} />
+                        <CalendarDay date={date} onRequestAddEvent={props.onRequestAddEvent} onRequestGetEvents={props.onRequestGetEvents} />
                     )}
                 </tr>)
             }
         </tbody>
     );
   }
+
+  function mapStateToProps(state) {
+    return {
+      month: state.month,
+      year: state.year
+    };
+  }
   
-  export default Body;
+
+  export default connect(mapStateToProps)(Body);
+  
   
