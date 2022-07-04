@@ -3,11 +3,11 @@ import Body from "./Body";
 import AddEvent from "./AddEvent";
 import { useState } from "react";
 import EventsList from "./EventsList";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as dateActions from "./redux/actions/dateActions";
 import { bindActionCreators } from "redux";
 
-function Calendar(props) {
+function Calendar() {
   const [events, setEvents] = useState([]);
   const [disabled, setDisabled] = useState(false);
   const [showAddEvent, setShowAddEvent] = useState(false);
@@ -18,6 +18,11 @@ function Calendar(props) {
   const displayMonths = ["January", "February", "March", "April", 
                          "May", "June", "July", "August", 
                          "September", "October", "November", "December"];
+
+  const state = useSelector(state => state);
+
+  const dispatch = useDispatch();
+  const { updateMonth, updateYear } = bindActionCreators(dateActions, dispatch);
 
   const addEvent = (calendarEvent) => {
     const id = Math.floor(Math.random() * 10000) + 1;
@@ -56,20 +61,20 @@ function Calendar(props) {
   }
 
   const onPrevClicked = () => {
-    if (props.month === 0) {
-      props.actions.updateMonth(11);
-      props.actions.updateYear(props.year - 1);
+    if (state.month === 0) {
+      updateMonth(11);
+      updateYear(state.year - 1);
     } else {
-      props.actions.updateMonth(props.month - 1);
+      updateMonth(state.month - 1);
     }
   }
 
   const onNextClicked = () => {
-    if (props.month === 11) {
-      props.actions.updateMonth(0);
-      props.actions.updateYear(props.year + 1);
+    if (state.month === 11) {
+      updateMonth(0);
+      updateYear(state.year + 1);
     } else {
-      props.actions.updateMonth(props.month + 1);
+      updateMonth(state.month + 1);
     }
   }
 
@@ -77,7 +82,7 @@ function Calendar(props) {
     <div>
       <div style={{ textAlign:"center" }}>
         <button onClick={onPrevClicked}>Previous</button>
-          <h2 style={{ display:"inline-block" }}>{displayMonths[props.month]} {props.year}</h2>
+          <h2 style={{ display:"inline-block" }}>{displayMonths[state.month]} {state.year}</h2>
         <button onClick={onNextClicked}>Next</button>
       </div>
       <table className="table" style={disabled ? {pointerEvents: "none", opacity: "0.4"} : {}}>
@@ -94,17 +99,4 @@ function Calendar(props) {
   );
 }
 
-function mapStateToProps(state) {
-  return {
-    month: state.month,
-    year: state.year
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(dateActions, dispatch)
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Calendar);
+export default Calendar;

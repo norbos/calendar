@@ -3,8 +3,6 @@ import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import './App.css';
 import Layout from './Layout';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Calendar from './Calendar';
-
 
 function App() {
   return (

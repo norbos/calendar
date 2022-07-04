@@ -1,15 +1,19 @@
 import * as types from "./actionTypes";
 
-export function updateMonth(month) {
-    return {
-        type: types.UPDATE_MONTH,
-        month
+export const updateMonth = (month) => {
+    return (dispatch) => {
+        dispatch({
+            type: types.UPDATE_MONTH,
+            payload: month
+        });
     };
 }
 
-export function updateYear(year) {
-    return {
-        type: types.UPDATE_YEAR,
-        year
+export const updateYear = (year) => {
+    return (dispatch) => {
+        dispatch({
+            type: types.UPDATE_YEAR,
+            payload: year
+        });
     };
 }

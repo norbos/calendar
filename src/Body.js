@@ -1,10 +1,12 @@
 import CalendarDay from "./CalendarDay";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 
-const Body = (props) => {
-    var iterDate = new Date(props.year, props.month, 1);
+const Body = ({ onRequestAddEvent, onRequestGetEvents }) => {
+    const state = useSelector(state => state);
+
+    var iterDate = new Date(state.year, state.month, 1);
     iterDate.setHours(0, 0, 0, 0);
-    var currentMonth = props.month;
+    var currentMonth = state.month;
 
     var grid = [];
 
@@ -30,7 +32,7 @@ const Body = (props) => {
                 <tr>
                     {
                     week.map(date => 
-                        <CalendarDay date={date} onRequestAddEvent={props.onRequestAddEvent} onRequestGetEvents={props.onRequestGetEvents} />
+                        <CalendarDay date={date} onRequestAddEvent={onRequestAddEvent} onRequestGetEvents={onRequestGetEvents} />
                     )}
                 </tr>)
             }
@@ -38,14 +40,6 @@ const Body = (props) => {
     );
   }
 
-  function mapStateToProps(state) {
-    return {
-      month: state.month,
-      year: state.year
-    };
-  }
-  
-
-  export default connect(mapStateToProps)(Body);
+  export default Body;
   
   
