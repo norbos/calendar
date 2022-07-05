@@ -27,9 +27,20 @@
   },
   "eslintConfig": {
     "extends": [
+      "eslint:recommended",
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "rules": {
+      "no-debugger": "off",
+      "no-console": "off",
+      "no-unused-vars": "warn"
+    },
+    "settings": {
+      "react": {
+        "version": "detect"
+      }
+    }
   },
   "browserslist": {
     "production": [
