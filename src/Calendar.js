@@ -1,11 +1,12 @@
-import Header from "./Header";
-import Body from "./Body";
-import AddEvent from "./AddEvent";
 import { useState } from "react";
-import EventsList from "./EventsList";
 import { useDispatch, useSelector } from "react-redux";
-import * as dateActions from "./redux/actions/dateActions";
 import { bindActionCreators } from "redux";
+import AddEvent from "./AddEvent";
+import Body from "./Body";
+import EventsList from "./EventsList";
+import Header from "./Header";
+
+import * as dateActions from "./redux/actions/dateActions";
 
 function Calendar() {
   const [events, setEvents] = useState([]);
@@ -30,7 +31,7 @@ function Calendar() {
     "December",
   ];
 
-  const state = useSelector((state) => state);
+  const state = useSelector((s) => s);
 
   const dispatch = useDispatch();
   const { updateMonth, updateYear } = bindActionCreators(dateActions, dispatch);
@@ -92,11 +93,15 @@ function Calendar() {
   return (
     <div>
       <div style={{ textAlign: "center" }}>
-        <button onClick={onPrevClicked}>Previous</button>
+        <button type="button" onClick={onPrevClicked}>
+          Previous
+        </button>
         <h2 style={{ display: "inline-block" }}>
           {displayMonths[state.month]} {state.year}
         </h2>
-        <button onClick={onNextClicked}>Next</button>
+        <button type="button" onClick={onNextClicked}>
+          Next
+        </button>
       </div>
       <table
         className="table"
@@ -108,27 +113,26 @@ function Calendar() {
           onRequestGetEvents={onRequestGetEvents}
         />
       </table>
-      {
-        <div>
-          {showAddEvent && (
-            <AddEvent
-              onAdd={addEvent}
-              onEventAddSuccess={onEventAddSuccess}
-              onAddCancel={onAddCancel}
-              date={currentDate}
-            />
-          )}
-          {showEventsList && (
-            <EventsList
-              date={currentListDate}
-              events={events.filter(
-                (e) => e.date.getTime() === currentListDate.getTime()
-              )}
-              onListClose={onListClose}
-            />
-          )}
-        </div>
-      }
+
+      <div>
+        {showAddEvent && (
+          <AddEvent
+            onAdd={addEvent}
+            onEventAddSuccess={onEventAddSuccess}
+            onAddCancel={onAddCancel}
+            date={currentDate}
+          />
+        )}
+        {showEventsList && (
+          <EventsList
+            date={currentListDate}
+            events={events.filter(
+              (e) => e.date.getTime() === currentListDate.getTime()
+            )}
+            onListClose={onListClose}
+          />
+        )}
+      </div>
     </div>
   );
 }

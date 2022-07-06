@@ -1,17 +1,18 @@
-import CalendarDay from "./CalendarDay";
+import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
+import CalendarDay from "./CalendarDay";
 
 const Body = ({ onRequestAddEvent, onRequestGetEvents }) => {
-  const state = useSelector((state) => state);
+  const state = useSelector((s) => s);
 
-  var iterDate = new Date(state.year, state.month, 1);
+  const iterDate = new Date(state.year, state.month, 1);
   iterDate.setHours(0, 0, 0, 0);
-  var currentMonth = state.month;
+  const currentMonth = state.month;
 
-  var grid = [];
+  const grid = [];
 
   while (iterDate.getMonth() === currentMonth) {
-    var currentWeek = [];
+    const currentWeek = [];
 
     for (let i = 0; i < 7; i++) {
       if (iterDate.getDay() !== i || iterDate.getMonth() !== currentMonth) {
@@ -40,6 +41,11 @@ const Body = ({ onRequestAddEvent, onRequestGetEvents }) => {
       ))}
     </tbody>
   );
+};
+
+Body.propTypes = {
+  onRequestAddEvent: PropTypes.func.isRequired,
+  onRequestGetEvents: PropTypes.func.isRequired,
 };
 
 export default Body;
