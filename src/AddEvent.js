@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
 
 const AddEvent = ({ date, onAdd, onEventAddSuccess, onAddCancel }) => {
@@ -38,38 +39,50 @@ const AddEvent = ({ date, onAdd, onEventAddSuccess, onAddCancel }) => {
   return (
     <form className="add-form" onSubmit={onSubmit}>
       <div className="form-control">
-        <label>Name</label>
-        <input
-          type="text"
-          placeholder="Event Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
+        <label htmlFor="name">
+          Name
+          <input
+            type="text"
+            id="name"
+            placeholder="Event Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </label>
       </div>
       <div className="form-control">
-        <label>Start Time</label>
-        <input
-          type="time"
-          value={startTime}
-          onChange={(e) => setStartTime(e.target.value)}
-        />
+        <label htmlFor="startTime">
+          Start Time
+          <input
+            type="time"
+            id="startTime"
+            value={startTime}
+            onChange={(e) => setStartTime(e.target.value)}
+          />
+        </label>
       </div>
       <div className="form-control">
-        <label>End Time</label>
-        <input
-          type="time"
-          value={endTime}
-          onChange={(e) => setEndTime(e.target.value)}
-        />
+        <label htmlFor="endTime">
+          End Time
+          <input
+            type="time"
+            id="endTime"
+            value={endTime}
+            onChange={(e) => setEndTime(e.target.value)}
+          />
+        </label>
       </div>
       <div className="form-control">
-        <label>Description</label>
-        <input
-          type="text"
-          placeholder="Add Description (Optional)"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
+        <label htmlFor="description">
+          Description
+          <input
+            type="text"
+            id="description"
+            placeholder="Add Description (Optional)"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </label>
       </div>
 
       <input type="submit" value="Add Event" className="btn" />
@@ -81,6 +94,13 @@ const AddEvent = ({ date, onAdd, onEventAddSuccess, onAddCancel }) => {
       />
     </form>
   );
+};
+
+AddEvent.propTypes = {
+  date: PropTypes.instanceOf(Date).isRequired,
+  onAdd: PropTypes.func.isRequired,
+  onAddCancel: PropTypes.func.isRequired,
+  onEventAddSuccess: PropTypes.func.isRequired,
 };
 
 export default AddEvent;

@@ -83,6 +83,7 @@
       },
       "rules": {
         "import/no-extraneous-dependencies": 0,
+        "react/function-component-definition": 0,
         "newline-per-chained-call": 0,
         "global-require": 0,
         "prefer-promise-reject-errors": 0
