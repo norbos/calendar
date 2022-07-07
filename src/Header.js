@@ -1,5 +1,5 @@
 function Header() {
-  var weekDays = [
+  const weekDays = [
     "Sunday",
     "Monday",
     "Tuesday",

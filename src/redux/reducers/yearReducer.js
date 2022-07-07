@@ -1,6 +1,6 @@
 import * as types from "../actions/actionTypes";
 
-export default function yearReducer(state = {}, action) {
+export default function yearReducer(state = {}, action = {}) {
   switch (action.type) {
     case types.UPDATE_YEAR:
       return action.payload;
